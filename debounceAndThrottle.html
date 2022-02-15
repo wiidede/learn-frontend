@@ -1,0 +1,49 @@
+<!-- 手写防抖和节流 -->
+<div id="app"></div>
+
+<script>
+    const throttle = (handler, timeout) => {
+        let timer
+        return function(...arg) {
+            if (timer) {
+                return
+            }
+            timer = setTimeout(
+                () => {
+                    handler.apply(this, arg)
+                    timer = null
+                },
+                timeout
+            )
+        }
+
+    }
+
+    const debounce = (handler, timeout) => {
+        let timer
+        return function (...arg) {
+            clearTimeout(timer)
+            timer = setTimeout(
+                () => {
+                    handler.apply(this, arg)
+                },
+                timeout
+            )
+        }
+    }
+
+    window.addEventListener('resize', throttle(
+        () => document.getElementById('app').appendChild(
+            document.createTextNode('-')
+        ),
+        200
+    ))
+
+    window.addEventListener('resize', debounce(
+        () => document.getElementById('app').appendChild(
+            document.createTextNode('+')
+        ),
+        200
+    ))
+
+</script>

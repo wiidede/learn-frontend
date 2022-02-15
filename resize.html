@@ -1,0 +1,47 @@
+<!-- 监听元素大小变化 -->
+<!-- 也可以使用 ResizeObserver -->
+<style>
+  body {
+    margin: 0;
+  }
+
+  #app{
+    display: flex;
+    height: 100vh;
+  }
+
+  .box {
+    flex: 1;
+    transition: width ease 0.3s;
+  }
+
+  .box1 {
+    background: bisque;
+  }
+
+  .box2 {
+    background: skyblue;
+  }
+
+</style>
+
+<div id="app">
+  <div class="box box1">
+
+  </div>
+  <div class="box box2" id="tar_box">
+
+  </div>
+</div>
+
+<script>
+	const resizeObserver = new ResizeObserver((entries) => {
+		console.log(entries);
+		entries.forEach(entry => {
+			const el = entry.target;
+			el.textContent = `width: ${el.clientWidth}`
+    })
+  })
+  resizeObserver.observe(document.getElementById('tar_box'));
+</script>
+
